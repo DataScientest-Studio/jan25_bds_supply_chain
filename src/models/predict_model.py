@@ -1,7 +1,16 @@
 # predict_model.py
+# This file contains functions to load  and make predictions for streamlit app.
+
+##############################################
+# Importing necessary libraries
+##############################################
 
 import joblib
 
+
+##############################################
+# Functions
+##############################################
 def load_model(model_path):
     """
     Load a trained model from the specified file path.

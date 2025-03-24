@@ -1,18 +1,25 @@
 import streamlit as st
-from transformers import pipeline
 
 st.title("📝 Analyse de Sentiment")
 
-sentiment_pipeline = pipeline("sentiment-analysis")
+# sentiment_pipeline = pipeline("sentiment-analysis")
 commentaire = st.text_area("Entrez un commentaire ici")
-if st.button("Analyser"):
+
+if st.button("Analyser la polarité du contenu du commentaire"):
     if commentaire:
-        resultat = sentiment_pipeline(commentaire)
-        sentiment = resultat[0]['label']
-        score = resultat[0]['score']
-        st.write(f"Sentiment : {sentiment} (Score: {score:.2f})")
+        st.success(f"Le résultat de l'analyse de la polarité du commentaire est :")
     else:
-        st.warning("Entrez un texte.")
+        st.warning("Entrez un commentaire avant d'analyser.")
+
+if st.button("Analyser le contenu du commentaire pour définir une note entre 1 et 5"):
+    if commentaire:
+        # Simulated rating analysis
+        # Simulated rating analysis with stars
+        rating = 4  # Example: Simulated rating value
+        stars = "⭐" * rating + "☆" * (5 - rating)
+        st.success(f"Le résultat de l'analyse de la note du commentaire est de : {stars}")
+    else:
+        st.warning("Entrez un commentaire avant d'analyser.")
 
 
 # Footer with modern style
