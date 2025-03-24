@@ -1,7 +1,18 @@
-Project Name
+Projet_Supply_Chain
 ==============================
 
-This repo is a Starting Pack for DS projects. You can rearrange the structure to make it fits your project.
+This Project aim is to build a model trained from TrustPilot reviews to predict the rating (number of stars from 1 to 5) from the review's text.
+
+The steps are  as follow : 
+    - Scarapping from TrustPilot API from src/features/web_scrapping_api.py
+    - EDA from TOBEADDED
+    - Machine Learning tests using the notebook notebooks/Machine_Learning/ML
+    - Deep Learning tests using the notebook notebooks/Deep_Learning/DL
+
+The project can run on the environment recquired in notebooks/Machine_Learning/ML.
+
+!!! ONLY FOR Deep Learning !!!
+A different environment is needed for DL located in notebooks/Deep_Learning/DL
 
 Project Organization
 ------------
