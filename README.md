@@ -5,7 +5,7 @@ This Project aim is to build a model trained from TrustPilot reviews to predict 
 
 The steps are  as follow : 
     - Scarapping from TrustPilot API from src/features/web_scrapping_api.py
-    - EDA from TOBEADDED
+    - EDA in notebook
     - Machine Learning tests using the notebook notebooks/Machine_Learning/ML
     - Deep Learning tests using the notebook notebooks/Deep_Learning/DL
 
