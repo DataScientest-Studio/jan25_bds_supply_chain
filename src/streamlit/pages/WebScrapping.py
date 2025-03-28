@@ -1,6 +1,8 @@
 import streamlit as st
 import os
 from PIL import Image
+from scrapping import fetch_reviews
+import pandas as pd
 
 def resize_image(img, target_height):
     img = Image.open(img)
@@ -17,7 +19,7 @@ def resize_image2(img, target_height):
 # Titre et description
 st.title("🖥️ Webscrapping")
 st.header("Cette page permet de présenter le webscrapping de TrustPilot utilisé afin d'entraîner nos modèles.")
-tab1, tab2, tab3 = st.tabs(["Présentation", "Déséquilibre", "Solution"])
+tab1, tab2, tab3, tab4, tab5 = st.tabs(["Présentation", "Déséquilibre", "Solution", "Scrapping", "DF Final"])
 with tab1:
     # Création de colonnes
     col1, col2 , col3 = st.columns([1, 2, 3])
@@ -60,6 +62,37 @@ with tab3:
     st.write("Notre solution a donc été de scrapper le nombre maximum de commentaires de la catégorie la moins représentée pour chaque marque.")
     st.image(r'src\streamlit\img\equilibre.png')
     st.write("Ainsi notre dataset est équilibré avec le même nombre d'avis par classe.")
+
+with tab4:
+
+    st.subheader("🔍 Scraper les avis TrustPilot")
+    st.text("Voici des exemple de scrapping simple que l'on peut réaliser :")
+    # Choix du site à scraper
+    sites_predefinis = ["www.dfs.co.uk", "www.gettington.com", "roomstogo.com", "theroomplace.com", "www.gardner-white.com", "www.icanvas.com",
+               "www.raymourflanigan.com", "vivint.com",  "www.bluestoneperennials.com",  'nfm.com', "www.scs.co.uk", "www.made.com"]
+
+    selection = st.selectbox("Sélectionnez un site :", sites_predefinis + ["Autre"])
+
+    # Si "Autre" est sélectionné, afficher un champ de texte pour entrer un site
+    if selection == "Autre":
+        site = st.text_input("Entrez un site :", "")
+    else:
+        site = selection
+
+    # Lancer le scraping
+    if st.button("Lancer le scraping"):
+        with st.spinner("Scraping en cours..."):
+            reviews = fetch_reviews(site)
+            st.success(f"{len(reviews)} avis récupérés avec succès.")
+            st.write(reviews)
+with tab5:
+    st.subheader("📊 DataFrame Final")
+    st.text("Notre DataFrame final est bien plus complexe avec plus de 58 000 avis\
+ et 23  obtenues via l'API TrustPilot.\n\
+Voici une version raccourcie :")
+    # print(os.getcwd())  # Affiche le chemin du répertoire actuel
+    df_short = pd.read_csv(r"src/streamlit/reviews_FINAL_short.csv", index_col=0)
+    st.write(df_short)
 
 
 # Footer avec style moderne
