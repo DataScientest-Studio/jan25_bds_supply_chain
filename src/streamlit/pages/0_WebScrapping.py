@@ -22,7 +22,7 @@ st.header("Cette page permet de présenter le webscrapping de TrustPilot utilis�
 tab1, tab2, tab3, tab4, tab5 = st.tabs(["Présentation", "Déséquilibre", "Solution", "Scrapping", "DF Final"])
 with tab1:
     # Création de colonnes
-    col1, col2 , col3 = st.columns([1, 2, 3])
+    col1, col2 , col3 = st.columns([1, 1, 3])
 
     with col1:
         st.write("\n\n\n\n\n\nLangue sélectionnée : Anglais")
@@ -42,7 +42,7 @@ with tab1:
     files = os.listdir(logo_folder)
 
     # Calculer le nombre de logos et ajuster la taille
-    logos_per_row = 4  # Nombre d'images par ligne
+    logos_per_row = 7  # Nombre d'images par ligne
     rows = [files[i:i + logos_per_row] for i in range(0, len(files), logos_per_row)]
 
     # Affichage des images par ligne
