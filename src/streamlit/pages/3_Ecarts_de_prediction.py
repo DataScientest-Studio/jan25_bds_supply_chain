@@ -1,8 +1,8 @@
 import streamlit as st
 import pandas as pd
 
-st.title("📝 Objectivité des commentaires")
 st.subheader("Notre modèle s'est entraîné et a été testé sur plusieurs milliers d'avis, mais ces derniers sont-ils toujours objectifs ?")
+st.title("📝 Écarts dans les prédictions")
 
 df = pd.read_csv("src/check_predict.csv")
 tab1, tab2 = st.tabs(["Tests", "Conclusion"])
