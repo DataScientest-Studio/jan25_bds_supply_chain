@@ -21,7 +21,7 @@ with st.container():
     with col1:
         date_experience = st.date_input("📅 Date of the experience:", value=date.today())
     with col2:
-        note = st.slider(
+        noteUser = st.slider(
             "⭐ Rating (1 to 5) for the multiclass model:",
             min_value=1,
             max_value=5,
@@ -76,7 +76,7 @@ with col2:
         if commentaire:
             data = pd.DataFrame({
                 "Content": [commentaire],
-                "rating": [note],
+                "rating": [noteUser],
                 "dates.experiencedDate": [date_experience],
                 "dates.publishedDate": [date.today()]
             })
@@ -102,10 +102,10 @@ with col2:
                 )
                 status_text.text(f"Analysis in progress... {i}%")
 
-            result = (predict_multiclass(data)) + 1
-
-            stars = "⭐" * result[0] + "☆" * (5 - result[0])
-            st.success(f"The result of the comment's rating analysis is: {stars} (User's chosen rating: ⭐ {note})")
+            result = predict_multiclass(data)
+            note = int(result[0])
+            stars = "⭐" * (note+1) + "☆" * (5 - (note+1))
+            st.success(f"The result of the comment's rating analysis is: {stars} (User's chosen rating: ⭐ {noteUser})")
         else:
             st.warning("Please enter a comment before analyzing.")
 
