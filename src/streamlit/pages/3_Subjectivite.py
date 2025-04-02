@@ -4,7 +4,7 @@ import pandas as pd
 st.title("📝 Objectivité des commentaires")
 st.subheader("Notre modèle s'est entraîné et a été testé sur plusieurs milliers d'avis, mais ces derniers sont-ils toujours objectifs ?")
 
-df = pd.read_csv(r"src\check_predict.csv")
+df = pd.read_csv("src/check_predict.csv")
 tab1, tab2 = st.tabs(["Tests", "Conclusion"])
 with tab1:
     # Interface de sélection

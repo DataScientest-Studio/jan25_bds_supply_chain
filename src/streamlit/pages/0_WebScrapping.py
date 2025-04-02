@@ -56,11 +56,11 @@ with tab1:
 with tab2:
     st.text("On peut facilement se rendre compte que les avis sont déséquilibrés avec une majorité de note extrême 1 ou 5, avec une sous \
 representation des notes intermédiaires comme 2, 3, et 4.")
-    st.image(r"src\streamlit\img\avis.png")
+    st.image('src/streamlit/img/avis.png')
 
 with tab3:
     st.write("Notre solution a donc été de scrapper le nombre maximum de commentaires de la catégorie la moins représentée pour chaque marque.")
-    st.image(r'src\streamlit\img\equilibre.png')
+    st.image('src/streamlit/img/equilibre.png')
     st.write("Ainsi notre dataset est équilibré avec le même nombre d'avis par classe.")
 
 with tab4:
