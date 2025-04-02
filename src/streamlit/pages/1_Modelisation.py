@@ -1,21 +1,66 @@
 import streamlit as st
 
-st.title("📊 Modélisation")
+import streamlit as st
 
-st.write("Cette page permet de visualiser les différentes étapes de modélisation du projet.")
-st.write("Les différentes étapes de modélisation sont les suivantes :")
-st.write("- Chargement des données")
-st.write("- Prétraitement des données")
-st.write("- Entraînement des modèles")
-st.write("- Évaluation des modèles")
-st.write("- Sélection du modèle final")
-st.write("- Sauvegarde du modèle final")
+st.title("📊 Modélisation des modèles de Machine Learning et de Deep Learning")
 
-st.header("📈 Performance des modèles")
-st.write("Voici un aperçu de la performance des modèles entraînés :")
-st.write("Modèle à 5 classes")
-st.write("Matrice de confusion :")
+st.write("XGBOOST - Binaire")
+with st.expander("📌 **Résumé de la performance du modèle**", expanded=False):
+    col1, col2 = st.columns(2)
 
+    with col1:
+        st.markdown("### 🔢 Distribution des classes")
+        st.write("Répartition stable dans les datasets `train` et `test` :")
+        st.markdown("- **60%** de **négatifs** (0)  \n- **40%** de **positifs** (1)")
+        st.image("src/streamlit/img/distribution.png", caption="Distribution des classes dans y_test_bin", use_container_width=True)
+
+    with col2:
+        st.markdown("### 📈 Matrice de confusion - Modèle XGBoost binaire")
+        st.image("src/streamlit/img/XGBoost - Binaire_confusion_matrix.png", caption="Matrice de confusion", use_container_width=True)
+        st.markdown("> ✅ Modèle entraîné sur un dataset à 2 classes.")
+
+    st.markdown("---")
+
+    st.markdown("### 📊 Métriques principales")
+
+    st.code("""accuracy  : 0.862
+roc_auc   : 0.929
+f1_score  : 0.832""", language="python")
+
+with st.expander("⚙️ Optimisation des hyperparamètres", expanded=False):
+    col1, col2 = st.columns(2)
+
+    with col1:
+        st.markdown("### 🔍 Hyperparamètres testés via `GridSearchCV`")
+        st.markdown("""
+- `n_estimators` : 50, 100, 200  
+- `max_depth` : 3, 6, 9  
+- `learning_rate` : 0.01, 0.1, 0.3
+        """)
+
+    with col2:
+        st.markdown("### ✅ Meilleurs paramètres trouvés :")
+        st.markdown("""
+- `n_estimators` : **200**  
+- `max_depth` : **9**  
+- `learning_rate` : **0.1**
+        """)
+        st.markdown("🎯 **Best Accuracy** : `0.9248`")
+
+with st.expander("🎚️ Seuil de décision (`threshold`) personnalisé", expanded=False):
+    st.markdown("Le modèle retourne une **probabilité** de classe positive (1).")
+    st.markdown("Par défaut, le seuil est fixé à `0.5`. Mais on peut l'ajuster selon l'objectif :")
+
+    st.markdown("""
+- 🔺 **Augmenter le seuil** → Moins de faux positifs  
+- 🔻 **Réduire le seuil** → Moins de faux négatifs  
+- 🎯 **Trouver le seuil optimal F1**
+    """)
+
+    st.image("src/streamlit/img/XGBoost - Binaire_fp_fn_threshold.png", caption="Évolution de la précision, du rappel et du F1 Score selon le seuil", use_container_width=True)
+
+    st.markdown("#### ✅ Seuil optimal trouvé : `0.41`")
+    
 # Footer with modern style
 st.markdown(
     """
