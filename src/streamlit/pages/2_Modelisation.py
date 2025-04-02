@@ -58,7 +58,7 @@ with tab2:
 roc_auc   : 0.929
 f1_score  : 0.832""", language="python")
 
-    with st.expander("⚙️ Optimisation des hyperparamètres", expanded=False):
+    with st.expander("**⚙️ Optimisation des hyperparamètres**", expanded=False):
         col1, col2 = st.columns(2)
 
         with col1:
@@ -78,7 +78,7 @@ f1_score  : 0.832""", language="python")
             """)
             st.markdown("🎯 **Best Accuracy** : `0.9248`")
 
-    with st.expander("🎚️ Seuil de décision (`threshold`) personnalisé", expanded=False):
+    with st.expander("**🎚️ Seuil de décision (`threshold`) personnalisé**", expanded=False):
         st.markdown("Le modèle retourne une **probabilité** de classe positive (1).")
         st.markdown("Par défaut, le seuil est fixé à `0.5`. Mais on peut l'ajuster selon l'objectif :")
 
@@ -114,7 +114,7 @@ with tab3:
             st.code("""accuracy  : 0.52
 RMSE  : 0.82""", language="python")
 
-    with st.expander("Comparaison des modèles à 5 classes", expanded=False):
+    with st.expander("**Comparaison des modèles à 5 classes**", expanded=False):
         col1 , col2  = st.columns([1,1])
         with col1:
             st.image("src/streamlit/img/xgboost_5_classes_cm.png", caption="Matrice de confusion 5 classes", use_container_width=True)
