@@ -8,21 +8,21 @@ st.set_page_config(
     layout="wide"
 )
 
-st.title("Accueil - Projet Trustpilot")
+st.title("Home - Trustpilot Project")
 
-st.write("Bienvenue sur notre application Streamlit !")
-st.write("Vous pouvez naviguer dans les différentes pages grâce à la barre de navigation sur la gauche.")
+st.write("Welcome to our Streamlit application!")
+st.write("You can navigate through the different pages using the navigation bar on the left.")
 
-st.header("À propos")
-st.write("Cette application a été créée dans le cadre du projet de certification Machine Learning Engineer de DataScientest et l'École des mines de Paris. Elle a pour but de mettre en pratique les connaissances acquises durant la formation. L'objectif est de créer une application de visualisation de données en utilisant Streamlit.")
+st.header("About")
+st.write("This application was created as part of the Machine Learning Engineer certification project by DataScientest and École des Mines de Paris. Its purpose is to apply the knowledge acquired during the training. The goal is to create a data visualization application using Streamlit.")
 
-st.header("Fonctionnalités")
-st.write("Voici les fonctionnalités de l'application :")
-st.write("- Analyse de sentiment : Analyser le sentiment d'un commentaire.")
-st.write("- Historique des analyses : Visualiser l'historique des analyses de sentiment.")
+st.header("Features")
+st.write("Here are the features of the application:")
+st.write("- Sentiment Analysis: Analyze the sentiment of a comment.")
+st.write("- Analysis History: View the history of sentiment analyses.")
 
 st.header("Technologies")
-st.write("Les technologies utilisées pour ce projet sont :")
+st.write("The technologies used for this project are:")
 st.write("- Python")
 st.write("- Torch")
 st.write("- Bert")
@@ -35,16 +35,15 @@ st.write("- Seaborn")
 st.write("- Pandas")
 st.write("- Numpy")
 
-
-st.header("Équipe")
-st.write("Cette application a été développée par :")
+st.header("Team")
+st.write("This application was developed by:")
 st.write("- Baptiste Audroin")
 st.write("- Jean-Claude Nguyen")
 st.write("- Steffen Morvan")
 
 st.header("Contact")
-st.write("Pour toute question ou information, vous pouvez nous contacter sur Slack")
-st.write("Merci de votre visite !")
+st.write("For any questions or information, you can contact us on Slack.")
+st.write("Thank you for visiting!")
 
 
 
@@ -75,7 +74,7 @@ st.markdown(
     }
     </style>
     <div class="footer">
-        Créé par <a href="">Baptiste Audroin</a>, <a href="">Jean-Claude Nguyen<a/> et <a href="">Steffen Morvan</a>
+        Created by <a href="">Baptiste Audroin</a>, <a href="">Jean-Claude Nguyen</a> and <a href="">Steffen Morvan</a>
     </div>
     """,
     unsafe_allow_html=True
