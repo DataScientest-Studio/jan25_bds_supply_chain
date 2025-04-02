@@ -173,9 +173,58 @@ def prepare(df, model=tfidf_vectorizer):
     df['polarity_words'] = df['Content'].apply(extract_polarity_words)
 
     # Dates + jours entre les deux
-    df["dates.experiencedDate"] = pd.to_datetime(df["dates.experiencedDate"], errors="coerce").dt.date
-    df["dates.publishedDate"] = pd.to_datetime(df["dates.publishedDate"], errors="coerce").dt.date
-    df["days_diff"] = (pd.to_datetime(df["dates.publishedDate"]) - pd.to_datetime(df["dates.experiencedDate"])).dt.days
+    df["dates.experiencedDate"] = pd.to_datetime(df["dates.experiencedDate"], errors="coerce")
+    df["dates.publishedDate"] = pd.to_datetime(df["dates.publishedDate"], errors="coerce")
+    df["days_diff"] = (df["dates.publishedDate"] - df["dates.experiencedDate"]).dt.days
+
+    # Nettoyage + NLP
+    df["Content_cleaned"] = df["Content"].apply(lambda x: clean_text(str(x)))
+    df["Content_cleaned"] = df["Content_cleaned"].apply(remove_proper_nouns)
+    df["Content_cleaned"] = df["Content_cleaned"].apply(keep_only_key_pos)
+
+    df['punctuation'] = df['Content'].apply(lambda x: re.findall(r'[^\w\s]', str(x)))
+    df['tokenized'] = df['Content_cleaned'].apply(clean_text_exclude_stopwords)
+    df['lemmatized'] = df['Content_cleaned'].apply(lemmatize_text)
+
+    # 🧠 Convertir la liste en string pour vectorisation
+    df["lemmatized_str"] = df["lemmatized"].apply(lambda x: " ".join(x) if isinstance(x, list) else str(x))
+    df["word_count"] = df["Content_cleaned"].apply(lambda x: len(str(x).split()))
+    df["Content_cleaned"] = df["Content_cleaned"].fillna("")
+
+    # TF-IDF vectorisation
+    tfidf_matrix = model.transform(df["lemmatized_str"])
+    df["vectorized"] = list(tfidf_matrix.toarray())
+    df["vectorized_sum"] = df["vectorized"].apply(np.sum)
+
+    X_vectorized = np.vstack(df["vectorized"].values)
+    num_features = ["polarity", "subjectivity", "word_count", "days_diff", "vectorized_sum"]
+    X_num = df[num_features].fillna(0).values
+    X_final = np.hstack([X_vectorized, X_num])
+
+    return X_final
+
+
+def prepare_multiclass(df, model=tfidf_vectorizer_multiclass):
+    '''
+    Prépare les données pour la prédiction.
+
+    Args:
+        df (pd.DataFrame): données brutes avec colonnes Content, dates.experiencedDate, dates.publishedDate
+        model: vecteur TF-IDF entraîné
+
+    Returns:
+        np.ndarray : données prêtes à être injectées dans le modèle
+    '''
+
+    # Vérification des colonnes requises
+    df['polarity'] = df['Content'].apply(lambda x: tb.TextBlob(str(x)).sentiment.polarity)
+    df['subjectivity'] = df['Content'].apply(lambda x: tb.TextBlob(str(x)).sentiment.subjectivity)
+    df['polarity_words'] = df['Content'].apply(extract_polarity_words)
+
+    # Dates + jours entre les deux
+    df["dates.experiencedDate"] = pd.to_datetime(df["dates.experiencedDate"], errors="coerce")
+    df["dates.publishedDate"] = pd.to_datetime(df["dates.publishedDate"], errors="coerce")
+    df["days_diff"] = (df["dates.publishedDate"] - df["dates.experiencedDate"]).dt.days
 
     # Nettoyage + NLP
     df["Content_cleaned"] = df["Content"].apply(lambda x: clean_text(str(x)))
